@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {observer} from 'mobx-react-lite'
+import StoresContext from '../../contexts/StoresContext';
 
-const Users = () => {
+const Users = observer(() => {
+  const stores = useContext(StoresContext)
 
-  return [1, 2, 3].map(item => (
-    <span>{item}</span>
+  return stores.userstore.users.map(item => (
+    <span>{JSON.stringify(item)}</span>
   ))
-};
+});
 
 export default Users;
