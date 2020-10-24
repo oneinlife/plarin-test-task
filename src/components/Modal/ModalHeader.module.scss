@@ -1,0 +1,53 @@
+@import '../../../src/styles/variables.scss';
+
+.root {
+  width: 100%;
+
+  .closeButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+  }
+}
+
+.primary {
+  .closeButton {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    color: $gray-700;
+    background-color: $gray-100;
+    font-size: 24px;
+    top: 12px;
+    right: 12px;
+
+    @media screen and (min-width: 801px) {
+      width: 45px;
+      height: 45px;
+
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+
+      font-size: 16px;
+  
+      &:hover,
+      &:active {
+        background-color: #f8f9f9;
+      }
+    }
+  }
+}
+
+.temp {
+  .closeButton {
+    width: 45px;
+    height: 45px;
+    right: 15px;
+    top: 15px;
+    font-size: 16px;
+  }
+}
