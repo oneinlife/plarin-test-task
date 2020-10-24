@@ -1,7 +1,7 @@
 {
-  "extends": ["eslint-config-airbnb", "plugin:jest/recommended"],
+  "extends": ["eslint-config-airbnb"],
   "parser": "babel-eslint",
-  "plugins": ["react", "jest", "react-hooks"],
+  "plugins": ["react", "react-hooks"],
   "env": {
     "browser": true,
     "jquery": true,
@@ -9,7 +9,6 @@
     "es6": true,
     "mocha": true,
     "phantomjs": true,
-    "jest/globals": true
   },
   "globals": {
     "__DEV__": true,
@@ -150,14 +149,10 @@
   },
   "settings": {
     "import/resolver": {
-      "alias": [
-        ["Components", "./src/components"],
-        ["ComponentsUI", "./src/components-ui"],
-        ["Fragments", "./layouts/fragments"],
-        ["Models", "./layouts/models"],
-        ["Hooks", "./src/hooks"],
-        ["Utils", "./src/utils"]
-      ]
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".ts", ".d.ts"]
+      }
     }
   }
 }

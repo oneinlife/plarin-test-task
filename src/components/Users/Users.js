@@ -1,13 +1,19 @@
-import React, {useContext} from 'react';
-import {observer} from 'mobx-react-lite'
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react-lite';
 import StoresContext from '../../contexts/StoresContext';
+import UserCard from '../UserCard';
+import s from './Users.module.scss';
 
 const Users = observer(() => {
-  const stores = useContext(StoresContext)
+  const { userstore } = useContext(StoresContext);
 
-  return stores.userstore.users.map(item => (
-    <span>{JSON.stringify(item)}</span>
-  ))
+  return (
+    <div className={s.container}>
+      {userstore.users.map(item => (
+        <UserCard key={item.id} {...item} />
+      ))}
+    </div>
+  );
 });
 
 export default Users;
