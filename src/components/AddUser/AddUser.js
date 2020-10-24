@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
-import Modal from '../Modal';
+import React, { useState, useContext } from 'react';
+import { observer } from 'mobx-react-lite';
+import StoresContext from '../../contexts/StoresContext';
+import ModalUser from '../ModalUser';
 import s from './AddUser.module.scss';
 
-const AddUser = () => {
-  const [show, setShow] = useState(false);
+const AddUser = observer(() => {
+  const { userstore } = useContext(StoresContext);
+  const [isShow, setShow] = useState(false);
   const onHide = () => setShow(false);
   const onShow = () => setShow(true);
+  const onSave = user => {
+    userstore.addUser(user);
+    onHide();
+  };
 
   return (
     <>
@@ -16,16 +23,13 @@ const AddUser = () => {
           </div>
         </div>
       </div>
-      <Modal
-        show={show}
+      <ModalUser
+        isShow={isShow}
         onHide={onHide}
-        variant="primary"
-      >
-        <Modal.Header />
-        <Modal.Body />
-      </Modal>
+        onSave={onSave}
+      />
     </>
   );
-};
+});
 
 export default AddUser;
