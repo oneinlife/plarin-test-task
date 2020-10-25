@@ -1,0 +1,31 @@
+@import '../../styles/variables.scss';
+
+.button {
+  padding: $spasing-8 $spasing-12;
+  border: 1px solid $blue-500;
+  border-radius: 4px;
+  margin-right: $spasing-8;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color .3s;
+
+  &:hover {
+    background-color: $blue-100;
+  }
+
+  &:active {
+    background-color: $blue-200;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.active {
+  background-color: $blue-300;
+
+  &:hover {
+    background-color: $blue-300;
+  }
+}

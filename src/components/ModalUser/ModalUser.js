@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import Modal from '../Modal';
+import Button from '../Button';
 import s from './ModalUser.module.scss';
 
-const ModalUser = ({ id, onHide, isShow, onSave, onDelete, ...props }) => {
-  const [firstName, setFirstName] = useState(props.firstName || '');
-  const [lastName, setLastName] = useState(props.lastName || '');
-  const [email, setEmail] = useState(props.email || '');
+const ModalUser = observer(({ user = {}, onHide, isShow, onSave, onDelete }) => {
+  const [firstName, setFirstName] = useState(user.firstName || '');
+  const [lastName, setLastName] = useState(user.lastName || '');
+  const [email, setEmail] = useState(user.email || '');
   const onChangeFirstName = e => setFirstName(e.target.value);
   const onChangeLastName = e => setLastName(e.target.value);
   const onChangeEmail = e => setEmail(e.target.value);
-  const onDeleteCurrent = () => onDelete(id);
-  const onSaveCurrent = () => onSave({ id, firstName, lastName, email });
+  const onDeleteCurrent = () => onDelete(user.id);
+  const onSaveCurrent = () => onSave({ id: user.id, firstName, lastName, email });
 
   return (
     <Modal
@@ -20,7 +22,15 @@ const ModalUser = ({ id, onHide, isShow, onSave, onDelete, ...props }) => {
       modalClassName={s.modal}
     >
       <Modal.Header />
-      <Modal.Body>
+      <Modal.Body className={s.modalBody}>
+        <div className={s.container}>
+          <div className={s.container__wrapper}>
+            <div
+              className={s.container__content}
+              style={{ backgroundImage: `url(${user.avatar || `${process.env.PUBLIC_URL}/no_photo.png`}), url(${process.env.PUBLIC_URL}/no_photo.png)` }}
+            />
+          </div>
+        </div>
         <input
           onChange={onChangeFirstName}
           type="text"
@@ -42,21 +52,21 @@ const ModalUser = ({ id, onHide, isShow, onSave, onDelete, ...props }) => {
           placeholder="email"
           className={s.input}
         />
-        <div>
+        <div className={s.buttonContaner}>
           {onDelete && (
-            <button onClick={onDeleteCurrent}>
-              Удалить
-            </button>
+          <Button onClick={onDeleteCurrent}>
+            Удалить
+          </Button>
           )}
           {onSave && (
-            <button onClick={onSaveCurrent}>
-              Сохранить
-            </button>
+          <Button className={s.button} onClick={onSaveCurrent}>
+            Сохранить
+          </Button>
           )}
         </div>
       </Modal.Body>
     </Modal>
   );
-};
+});
 
 export default ModalUser;

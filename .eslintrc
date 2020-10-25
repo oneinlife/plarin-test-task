@@ -87,7 +87,7 @@
     //react rules
     "react/jsx-no-duplicate-props": 1,
     "react/jsx-no-undef": 1,
-    "react/prop-types": 1,
+    "react/prop-types": 0,
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 1,
     "react/jsx-wrap-multilines": 2,
@@ -119,7 +119,6 @@
       "groups": {
         "lifecycle": [
           "displayName",
-          "propTypes",
           "contextTypes",
           "childContextTypes",
           "mixins",

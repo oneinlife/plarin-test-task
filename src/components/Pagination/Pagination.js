@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import StoresContext from '../../contexts/StoresContext';
+import Button from '../Button';
 import s from './Pagination.module.scss';
 
 const Pagination = observer(() => {
@@ -12,16 +12,13 @@ const Pagination = observer(() => {
   return (
     <div className={s.container}>
       {pages.map((i, index) => (
-        <div
-          className={classNames(
-            s.button,
-            { [s.active]: userstore.currentPage === index + 1 },
-          )}
+        <Button
+          active={userstore.currentPage === index + 1}
           key={index}
           onClick={() => onClick(index + 1)}
         >
           {index + 1}
-        </div>
+        </Button>
       ))}
     </div>
   );

@@ -1,7 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import axios from 'axios';
+import UserStore from './UserStore';
 
-export class UsersStore {
+class UsersStore {
   users = [];
 
   totalPages = null;
@@ -12,10 +13,10 @@ export class UsersStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.loadTodos();
+    this.loadUsers();
   }
 
-  loadTodos(page = 1) {
+  loadUsers(page = 1) {
     this.isLoading = true;
     axios({
       method: 'get',
@@ -23,7 +24,7 @@ export class UsersStore {
     })
       .then(response => {
         runInAction(() => {
-          this.users = response.data.data;
+          this.users = response.data.data.map(user => new UserStore(this, user));
           this.isLoading = false;
           this.totalPages = response.data.total_pages;
           this.currentPage = response.data.page;
@@ -33,7 +34,7 @@ export class UsersStore {
 
   changePage(page) {
     this.currentPage !== page &&
-      this.loadTodos(page);
+      this.loadUsers(page);
   }
 
   addUser(user) {
@@ -48,41 +49,15 @@ export class UsersStore {
     })
       .then(response => {
         runInAction(() => {
-          this.users.unshift(response.data);
-          this.users.pop();
-        });
-      });
-  }
-
-  updateUser({ firstName, lastName, email, id }) {
-    axios({
-      method: 'put',
-      url: `https://reqres.in/api/users/${id}`,
-      data: {
-        first_name: firstName,
-        last_name: lastName,
-        email,
-      },
-    })
-      .then(response => {
-        runInAction(() => {
-          const index = this.users.findIndex(user => user.id === id);
-          this.users[index] = { ...this.users[index], ...response.data };
+          this.users.unshift(new UserStore(this, response.data));
+          this.users.length > 6 && this.users.pop();
         });
       });
   }
 
   deleteUser(id) {
-    axios({
-      method: 'delete',
-      url: `https://reqres.in/api/users/${id}`,
-    })
-      .then(() => {
-        runInAction(() => {
-          const index = this.users.findIndex(user => user.id === id);
-          this.users.splice(index, 1);
-        });
-      });
+    const index = this.users.findIndex(user => user.id === id);
+    this.users.splice(index, 1);
   }
 }
 

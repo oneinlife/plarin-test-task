@@ -2,9 +2,52 @@
 
 .modal {
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
+}
+
+.modalBody {
+  align-items: stretch;
 }
 
 .input {
-  margin-bottom: $spasing-8;
+  margin-bottom: $spasing-16;
+  height: $spasing-32;
+  border-radius: 4px;
+}
+
+.container {
+  width: 100%;
+  margin-bottom: $spasing-16;
+}
+
+.container__wrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; // пропорции блока определяются здесь
+}
+
+.container__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: $gray-500;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: $spasing-4;
+  box-sizing: border-box;
+}
+
+.buttonContaner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button:only-child {
+  width: 100%;
 }

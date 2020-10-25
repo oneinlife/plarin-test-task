@@ -10,8 +10,8 @@ const Users = observer(() => {
 
   return (
     <div className={s.container}>
-      {userstore.users.map(item => (
-        <UserCard key={item.id} {...item} />
+      {userstore.users.map(user => (
+        <UserCard key={user.id} user={user} />
       ))}
       <AddUser />
     </div>
