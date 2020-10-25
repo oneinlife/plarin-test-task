@@ -23,11 +23,12 @@ const AddUser = observer(() => {
           </div>
         </div>
       </div>
+      {isShow && (
       <ModalUser
-        isShow={isShow}
         onHide={onHide}
         onSave={onSave}
       />
+      )}
     </>
   );
 });

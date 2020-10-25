@@ -4,7 +4,7 @@ import Modal from '../Modal';
 import Button from '../Button';
 import s from './ModalUser.module.scss';
 
-const ModalUser = observer(({ user = {}, onHide, isShow, onSave, onDelete }) => {
+const ModalUser = observer(({ user = {}, onHide, onSave, onDelete }) => {
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [email, setEmail] = useState(user.email || '');
@@ -16,7 +16,6 @@ const ModalUser = observer(({ user = {}, onHide, isShow, onSave, onDelete }) => 
 
   return (
     <Modal
-      show={isShow}
       onHide={onHide}
       variant="primary"
       modalClassName={s.modal}

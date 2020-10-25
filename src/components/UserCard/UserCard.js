@@ -29,7 +29,6 @@ const UserCard = observer(({ user }) => {
       </div>
       {isShow && (
       <ModalUser
-        isShow={isShow}
         isLoading={user.isLoading}
         onHide={onHide}
         onSave={onSave}
