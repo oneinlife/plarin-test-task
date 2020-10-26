@@ -69,7 +69,9 @@ class UsersStore {
 
   deleteUser(id) {
     const index = this.users.findIndex(user => user.id === id);
-    this.users.splice(index, 1);
+    if (index !== -1) {
+      this.users.splice(index, 1);
+    }
   }
 }
 

@@ -71,13 +71,13 @@ class UserStore {
       });
   }
 
-  deleteUser(id) {
+  deleteUser() {
     axios({
       method: 'delete',
-      url: `https://reqres.in/api/users/${id}`,
+      url: `https://reqres.in/api/users/${this.id}`,
     })
       .then(() => {
-        this.parent.deleteUser(id);
+        this.parent.deleteUser(this.id);
       })
       .catch(error => {
         ErrorsStore.logError({ message: 'Не удалось удалить пользователя', error });
