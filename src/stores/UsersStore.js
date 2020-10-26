@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import axios from 'axios';
 import UserStore from './UserStore';
+import ErrorsStore from './ErrorsStore';
 
 class UsersStore {
   users = [];
@@ -29,6 +30,10 @@ class UsersStore {
           this.totalPages = response.data.total_pages;
           this.currentPage = response.data.page;
         });
+      })
+      .catch(error => {
+        this.isLoading = false;
+        ErrorsStore.logError({ message: 'Не удалось загрузить список пользователей', error });
       });
   }
 
@@ -38,21 +43,28 @@ class UsersStore {
   }
 
   addUser(user) {
-    axios({
-      method: 'post',
-      url: 'https://reqres.in/api/users',
-      data: {
-        first_name: user.firstName,
-        last_name: user.lastName,
-        email: user.email,
-      },
-    })
-      .then(response => {
-        runInAction(() => {
-          this.users.unshift(new UserStore(this, response.data));
-          this.users.length > 6 && this.users.pop();
+    if (user.firstName) {
+      axios({
+        method: 'post',
+        url: 'https://reqres.in/api/users',
+        data: {
+          first_name: user.firstName,
+          last_name: user.lastName,
+          email: user.email,
+        },
+      })
+        .then(response => {
+          runInAction(() => {
+            this.users.unshift(new UserStore(this, response.data));
+            this.users.length > 6 && this.users.pop();
+          });
+        })
+        .catch(error => {
+          ErrorsStore.logError({ message: 'Не удалось создать пользователя', error });
         });
-      });
+    } else {
+      ErrorsStore.logError({ message: 'Невозможно создать пользователя без имени' });
+    }
   }
 
   deleteUser(id) {
