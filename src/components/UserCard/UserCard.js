@@ -9,8 +9,8 @@ const UserCard = observer(({ user }) => {
   const onShow = () => {
     user.loadFull(() => setShow(true));
   };
-  const onSave = () => {
-    user.updateUser(user);
+  const onSave = newUser => {
+    user.updateUser(newUser);
     onHide();
   };
 

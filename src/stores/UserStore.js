@@ -60,10 +60,12 @@ class UserStore {
         email,
       },
     })
-      .then(response => {
+      .then(({ data }) => {
         runInAction(() => {
-          const index = this.users.findIndex(user => user.id === id);
-          this.users[index] = { ...this.users[index], ...response.data };
+          console.log(data.first_name, data.last_name, data.email)
+          this.firstName = data.first_name;
+          this.lastName = data.last_name;
+          this.email = data.email;
         });
       })
       .catch(error => {
